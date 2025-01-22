@@ -1,78 +1,56 @@
 package org.example;
 
 public class Blender implements IBlender {
-    private boolean isOn = false;
-    private boolean isEmpty = true;
-    private byte actualSpeed = 0;
-    private String product = null;
 
-    @Override 
-    public byte checkPowerStatus(){
-        return isOn ? (byte) 1 : (byte) 0;
-    }
+    private byte powerStatus; // 0 - off, 1 - on 2 - suspended
 
-    @Override
-    public byte switchPowerStatus(){
-        isOn = !isOn;
-        return checkPowerStatus();
-    }
+    private byte speed; // 0 - 
 
-    @Override
-    public void fillBlender(String prod, float ml) {
-        if(ml > 0) {
-            product = prod;
-            isEmpty = false;
+    
+    public void increaseSpeed() {
+        if (this.powerStatus == 2 && this.actualCapacity() > 0) {
+            if (this.speed <= 3 && this.speed >=0) {
+                this.speed++;
+            }
+        } else {
+            throw new IllegalStateException("The blender must be on and have a product to increase the speed.");
         }
     }
 
-    @Override 
-    public int actualCapacity(){
-        return = 0;
-    }
-
-    @Override
-    public void fillBlender(String prod){
-        fillBlender(prod, 0);
-    }
-
-    @Override
-    public void increaseSpeed(){
-        if (isOn && !isEmpty && actualSpeed < 4) {
-            actualSpeed++;
-        }else {
-            throw new Exception("The blender is on his maximum capacity");
-        }
-    }
-
-    @Override
     public void decreaseSpeed(){
-        if(isOn && actualSpeed > 0) {
-            actualSpeed--;
-        } else if == 0 {
-            switchPowerStatus(0);
-        }else {
-            throw new Exception("The blender is on his minimun capacity");
+        if (this.powerStatus == 2 && this.actualCapacity() > 0) {
+            if (this.speed <= 3 && this.speed >0) {
+                this.speed--;
+            } else if (this.speed == 0) {
+                switchPowerStatus(0);
+            }
+        } else {
+            throw new IllegalStateException("The blender must be on and have a product to decrease the speed.");
         }
     }
 
-    @Override
-    public byte checkSpeed(){
-        return actualSpeed;
+    public byte checkSpeed() {
+        return this.speed;
     }
 
-    @Override
-    public boolean isFull(){
-        return false;
+    public byte checkPowerStatus() {
+        return this.powerStatus;
     }
 
-    @Override
-    public void emptyBlender(){
-        product = null;
-        isEmpty = true;
+    public byte switchPowerStatus(){
+        if (this.powerStatus == 0) {
+            // off
+            this.powerStatus = 1;
+            return 1;
+        } else if (this.powerStatus == 1) {
+            // on
+            this.powerStatus = 2;
+            return 2;
+        } else { 
+            // suspended
+            this.powerStatus = 0;
+            return 0;
+        }
     }
-
-    @Override
-    public void emptyBlender(float ml){
-
-    }
+    
 }
