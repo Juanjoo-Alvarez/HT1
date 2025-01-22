@@ -1,14 +1,22 @@
 package org.example;
 
+import java.util.ArrayList;
+
 public class Blender implements IBlender {
 
     private byte powerStatus; // 0 - off, 1 - on 2 - suspended
 
     private byte speed; // 0 - 
 
+    private float capacity;
+
+    private ArrayList<String> products;
+
+    private float maxCapacity;
+
     
     public void increaseSpeed() {
-        if (this.powerStatus == 2 && this.actualCapacity() > 0) {
+        if (this.powerStatus == 1 && this.actualCapacity() > 0) {
             if (this.speed <= 3 && this.speed >=0) {
                 this.speed++;
             }
@@ -18,11 +26,11 @@ public class Blender implements IBlender {
     }
 
     public void decreaseSpeed(){
-        if (this.powerStatus == 2 && this.actualCapacity() > 0) {
+        if (this.powerStatus == 1 && this.actualCapacity() > 0) {
             if (this.speed <= 3 && this.speed >0) {
                 this.speed--;
             } else if (this.speed == 0) {
-                switchPowerStatus(0);
+               this.powerStatus = 0;
             }
         } else {
             throw new IllegalStateException("The blender must be on and have a product to decrease the speed.");
@@ -31,6 +39,14 @@ public class Blender implements IBlender {
 
     public byte checkSpeed() {
         return this.speed;
+    }
+
+    public float actualCapacity() {
+        return this.capacity;
+    }
+
+    public boolean isFull() {
+        return this.capacity == this.maxCapacity;
     }
 
     public byte checkPowerStatus() {
@@ -52,5 +68,31 @@ public class Blender implements IBlender {
             return 0;
         }
     }
+
+
+    public void fillBlender(String prod, float ml) {
+        if (this.powerStatus == 0) {
+            throw new IllegalStateException("The blender must be on to fill it with a product.");
+        }
+        if (this.capacity + ml > this.maxCapacity) {
+            throw new IllegalStateException("The blender is full.");
+        }
+        this.capacity += ml;
+        this.products.add(prod);
+    }
+
+    // Se debe llenar con 250ml por defecto
+    public void fillBlender(String prod) {
+        if (this.powerStatus == 0) {
+            throw new IllegalStateException("The blender must be on to fill it with a product.");
+        }
+        if (this.capacity + 250 > this.maxCapacity) {
+            throw new IllegalStateException("The blender is full.");
+        }
+        this.capacity += 250;
+        this.products.add(prod);
+    }
+
+
     
 }
