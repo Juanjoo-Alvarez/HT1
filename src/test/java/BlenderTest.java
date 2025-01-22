@@ -1,18 +1,20 @@
-package src.test.java;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 
 public class BlenderTest {
     private Blender blender;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         blender = new Blender();
     }
 
     @Test
-    public void testIncreaseSpeed(){
-        blender.switchPowerStatus(); 
-        blender.fillBlender("Fruit", 500);
+    public void testIncreaseSpeed() {
+        blender.switchPowerStatus(); // Enciende la licuadora
+        blender.fillBlender("Fruit", 500); // Llena la licuadora
 
         blender.increaseSpeed();
         assertEquals(1, blender.checkSpeed());
@@ -21,10 +23,10 @@ public class BlenderTest {
         assertEquals(2, blender.checkSpeed());
 
         // Prueba para no exceder la velocidad máxima
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             blender.increaseSpeed();
         }
-        assertEquals(10, blender.checkSpeed());
+        assertEquals(3, blender.checkSpeed());
     }
 
     @Test

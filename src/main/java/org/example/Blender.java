@@ -8,16 +8,16 @@ import java.util.ArrayList;
  */
 public class Blender implements IBlender {
 
-    private byte powerStatus; // 0 - off, 1 - on, 2 - suspended
-    private byte speed; // 0 - lowest speed, 3 - highest speed
+    private byte powerStatus = 0; // 0 - off, 1 - on, 2 - suspended
+    private byte speed = 0; // 0 - lowest speed, 3 - highest speed
     private ArrayList<String> products;
-    private float capacity;
+    private float capacity = 1;
     private float maxCapacity;
 
     /**
      * Aumenta la velocidad de la licuadora si está encendida y contiene productos.
      * La velocidad puede aumentar de 0 a 3.
-     * 
+     *
      * @throws IllegalStateException si la licuadora está apagada o no tiene productos.
      */
     public void increaseSpeed() {
@@ -33,7 +33,7 @@ public class Blender implements IBlender {
     /**
      * Disminuye la velocidad de la licuadora si está encendida y contiene productos.
      * La velocidad puede disminuir de 3 a 0. Si la velocidad es 0, la licuadora se apaga.
-     * 
+     *
      * @throws IllegalStateException si la licuadora está apagada o no tiene productos.
      */
     public void decreaseSpeed(){
@@ -41,7 +41,7 @@ public class Blender implements IBlender {
             if (this.speed <= 3 && this.speed >0) {
                 this.speed--;
             } else if (this.speed == 0) {
-               this.powerStatus = 0;
+                this.powerStatus = 0;
             }
         } else {
             throw new IllegalStateException("The blender must be on and have a product to decrease the speed.");
@@ -50,7 +50,7 @@ public class Blender implements IBlender {
 
     /**
      * Obtiene la velocidad actual de la licuadora.
-     * 
+     *
      * @return la velocidad actual de la licuadora.
      */
     public byte checkSpeed() {
@@ -59,7 +59,7 @@ public class Blender implements IBlender {
 
     /**
      * Devuelve la capacidad actual de la licuadora.
-     * 
+     *
      * @return la capacidad actual en mililitros.
      */
     public float actualCapacity() {
@@ -68,7 +68,7 @@ public class Blender implements IBlender {
 
     /**
      * Verifica si la licuadora está llena.
-     * 
+     *
      * @return {@code true} si la licuadora está llena, {@code false} en caso contrario.
      */
     public boolean isFull() {
@@ -77,7 +77,7 @@ public class Blender implements IBlender {
 
     /**
      * Obtiene el estado de encendido/apagado de la licuadora.
-     * 
+     *
      * @return el estado de encendido: 0 - apagado, 1 - encendido, 2 - suspendido.
      */
     public byte checkPowerStatus() {
@@ -87,7 +87,7 @@ public class Blender implements IBlender {
     /**
      * Cambia el estado de encendido/apagado de la licuadora.
      * Si está apagada, pasa a encendida; si está encendida, se suspende; si está suspendida, se apaga.
-     * 
+     *
      * @return el nuevo estado de la licuadora después de cambiar: 0 - apagado, 1 - encendido, 2 - suspendido.
      */
     public byte switchPowerStatus(){
@@ -99,7 +99,7 @@ public class Blender implements IBlender {
             // encendido
             this.powerStatus = 2;
             return 2;
-        } else { 
+        } else {
             // suspendido
             this.powerStatus = 0;
             return 0;
@@ -108,7 +108,7 @@ public class Blender implements IBlender {
 
     /**
      * Llena la licuadora con un producto y una cantidad de mililitros especificada.
-     * 
+     *
      * @param prod el nombre del producto a agregar.
      * @param ml la cantidad de mililitros a agregar al vaso.
      * @throws IllegalStateException si la licuadora está apagada o si se excede la capacidad máxima.
@@ -126,7 +126,7 @@ public class Blender implements IBlender {
 
     /**
      * Llena la licuadora con un producto y una cantidad de 250 ml por defecto.
-     * 
+     *
      * @param prod el nombre del producto a agregar.
      * @throws IllegalStateException si la licuadora está apagada o si se excede la capacidad máxima.
      */
@@ -151,7 +151,7 @@ public class Blender implements IBlender {
 
     /**
      * Vacía la licuadora de una cantidad específica de mililitros.
-     * 
+     *
      * @param ml la cantidad de mililitros a vaciar de la licuadora.
      * @throws IllegalStateException si la cantidad a vaciar excede la capacidad actual.
      */

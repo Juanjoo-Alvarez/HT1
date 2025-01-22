@@ -13,9 +13,9 @@ public interface IBlender {
      **/
     public void fillBlender(String prod, float ml);
 
-    public int actualCapacity();
+    public float actualCapacity();
 
-    @Override
+
     public void fillBlender(String prod);
 
 
@@ -58,7 +58,7 @@ public interface IBlender {
      **/
     public void emptyBlender();
 
-    @Override
+
     public void emptyBlender(float ml);
 
 
