@@ -7,12 +7,13 @@ public class Blender implements IBlender {
     private byte powerStatus; // 0 - off, 1 - on 2 - suspended
 
     private byte speed; // 0 - 
-
-    private float capacity;
-
     private ArrayList<String> products;
-
+    private float capacity;
     private float maxCapacity;
+    private boolean isEmpty = true;
+
+    private int productsCount = 0;
+
 
     
     public void increaseSpeed() {
@@ -69,8 +70,8 @@ public class Blender implements IBlender {
         }
     }
 
-
-    public void fillBlender(String prod, float ml) {
+  
+   public void fillBlender(String prod, float ml) {
         if (this.powerStatus == 0) {
             throw new IllegalStateException("The blender must be on to fill it with a product.");
         }
@@ -93,6 +94,10 @@ public class Blender implements IBlender {
         this.products.add(prod);
     }
 
-
+    public void emptyBlender() {
+        products = new ArrayList<String>;
+        productsCount = 0; 
+        isEmpty = true;
+    }
     
 }
