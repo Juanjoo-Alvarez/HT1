@@ -6,6 +6,14 @@ public class Blender implements IBlender {
 
     private byte speed; // 0 - 
 
+    private ArrayList<String> products;
+
+    private boolean isEmpty = true;
+
+    private int productsCount = 0;
+
+
+
     
     public void increaseSpeed() {
         if (this.powerStatus == 2 && this.actualCapacity() > 0) {
@@ -51,6 +59,12 @@ public class Blender implements IBlender {
             this.powerStatus = 0;
             return 0;
         }
+    }
+
+    public void emptyBlender() {
+        products = new ArrayList<String>;
+        productsCount = 0; 
+        isEmpty = true;
     }
     
 }
